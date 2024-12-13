@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App by Fozan Ahmed</title>
+    <link rel="icon" type="image/x-icon" href="./static/sunset_sun_sunshine_sunrise_weather_icon_194245.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body::before {
+            content: "";
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background: url('/static/pexels-scottwebb-1029624.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        body {
+            position: relative;
+            color: rgb(43, 18, 18);
+            overflow-x: hidden;
+        }
+        .container {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Weather App by Fozan Ahmed</h1>
+        <form method="POST">
+            <input type="text" name="city" class="form-control" placeholder="Enter city" required>
+            <button type="submit" class="btn btn-primary mt-3">Get Weather</button>
+        </form>
+        {% if weather %}
+            {% if weather.error %}
+                <p class="mt-4">{{ weather.error }}</p>
+            {% else %}
+                <div class="mt-4">
+                    <h3>{{ weather['name'] }}</h3>
+                    <p>Temperature: {{ weather['main']['temp'] }}°C</p>
+                    <p>Condition: {{ weather['weather'][0]['description'] }}</p>
+                    <img src="http://openweathermap.org/img/wn/{{ weather['weather'][0]['icon'] }}@2x.png" alt="Weather icon">
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
